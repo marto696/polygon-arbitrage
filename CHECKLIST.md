@@ -51,11 +51,11 @@ Primary stack:
 - [x] Create `polygon-executor`
 - [x] Verify workspace with `cargo check --workspace`
 
-- [ ] Create `.gitignore`
-- [ ] Create `.env.example`
-- [ ] Create `README.md`
-- [ ] Complete `ARCHITECTURE.md`
-- [ ] Complete `CHECKLIST.md`
+- [x] Create `.gitignore`
+- [x] Create `.env.example`
+- [x] Create `README.md`
+- [x] Complete `ARCHITECTURE.md`
+- [x] Complete `CHECKLIST.md`
 - [ ] Run `cargo fmt --all`
 - [ ] Run `cargo check --workspace`
 
