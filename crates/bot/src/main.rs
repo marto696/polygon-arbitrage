@@ -1,4 +1,4 @@
-use polygon_rpc::polygon_status;
+use polygon_rpc::{latest_block_info, polygon_status};
 use std::env;
 
 #[tokio::main]
@@ -13,6 +13,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
 
     println!("Chain ID: {chain_id}");
     println!("Latest block: {block_number}");
+
+    let (number, hash) = latest_block_info(&rpc_url).await?;
+
+    println!("Block number: {number}");
+    println!("Block hash: {hash}");
 
     Ok(())
 }
