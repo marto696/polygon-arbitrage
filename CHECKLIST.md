@@ -117,7 +117,7 @@ Primary stack:
 
 ## HTTP
 
-- [ ] Add Alloy dependencies
+- [x] Add Alloy dependencies
 - [ ] Configure Polygon PoS RPC provider
 - [ ] Connect through HTTP
 - [ ] Read chain ID

@@ -1,14 +1,12 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
-}
+use alloy_provider::{Provider, ProviderBuilder};
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+pub async fn polygon_status(
+    rpc_url: &str,
+) -> Result<(u64, u64), Box<dyn std::error::Error + Send + Sync>> {
+    let provider = ProviderBuilder::new().connect(rpc_url).await?;
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
+    let chain_id = provider.get_chain_id().await?;
+    let block_number = provider.get_block_number().await?;
+
+    Ok((chain_id, block_number))
 }
