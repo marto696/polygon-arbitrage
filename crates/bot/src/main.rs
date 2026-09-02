@@ -1,4 +1,6 @@
-use polygon_rpc::{latest_block_first_transaction, latest_block_info, polygon_status};
+use polygon_rpc::{
+    account_balance, latest_block_first_transaction, latest_block_info, polygon_status,
+};
 use std::env;
 
 #[tokio::main]
@@ -24,6 +26,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     println!("Transaction hash: {tx_hash}");
     println!("Transaction from: {from}");
     println!("Transaction block: {tx_block}");
+
+    let balance = account_balance(&rpc_url, &from).await?;
+
+    println!("Account balance (base units): {balance}");
 
     Ok(())
 }

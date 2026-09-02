@@ -1,5 +1,6 @@
 use alloy_eips::BlockNumberOrTag;
 use alloy_network::TransactionResponse;
+use alloy_primitives::Address;
 use alloy_provider::{Provider, ProviderBuilder};
 
 pub async fn polygon_status(
@@ -43,4 +44,16 @@ pub async fn latest_block_first_transaction(
         .ok_or("transaction has no block number")?;
 
     Ok((tx_hash, from, block_number))
+}
+
+pub async fn account_balance(
+    rpc_url: &str,
+    address: &str,
+) -> Result<String, Box<dyn std::error::Error + Send + Sync>> {
+    let provider = ProviderBuilder::new().connect(rpc_url).await?;
+
+    let address: Address = address.parse()?;
+    let balance = provider.get_balance(address).await?;
+
+    Ok(balance.to_string())
 }
