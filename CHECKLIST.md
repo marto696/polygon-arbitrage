@@ -123,8 +123,8 @@ Primary stack:
 - [x] Read chain ID
 - [x] Verify Polygon PoS chain ID
 - [x] Read latest block number
-- [ ] Read block
-- [ ] Read transaction
+- [x] Read block
+- [x] Read transaction
 - [ ] Read account balance
 - [ ] Test `eth_call`
 - [ ] Test gas estimation

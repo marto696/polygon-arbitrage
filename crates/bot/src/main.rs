@@ -1,4 +1,4 @@
-use polygon_rpc::{latest_block_info, polygon_status};
+use polygon_rpc::{latest_block_first_transaction, latest_block_info, polygon_status};
 use std::env;
 
 #[tokio::main]
@@ -18,6 +18,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
 
     println!("Block number: {number}");
     println!("Block hash: {hash}");
+
+    let (tx_hash, from, tx_block) = latest_block_first_transaction(&rpc_url).await?;
+
+    println!("Transaction hash: {tx_hash}");
+    println!("Transaction from: {from}");
+    println!("Transaction block: {tx_block}");
 
     Ok(())
 }

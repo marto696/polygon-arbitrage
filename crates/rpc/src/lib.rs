@@ -1,4 +1,5 @@
 use alloy_eips::BlockNumberOrTag;
+use alloy_network::TransactionResponse;
 use alloy_provider::{Provider, ProviderBuilder};
 
 pub async fn polygon_status(
@@ -23,4 +24,23 @@ pub async fn latest_block_info(
         .ok_or("latest block not found")?;
 
     Ok((block.header.number, block.header.hash.to_string()))
+}
+
+pub async fn latest_block_first_transaction(
+    rpc_url: &str,
+) -> Result<(String, String, u64), Box<dyn std::error::Error + Send + Sync>> {
+    let provider = ProviderBuilder::new().connect(rpc_url).await?;
+
+    let transaction = provider
+        .get_transaction_by_block_number_and_index(BlockNumberOrTag::Latest, 0)
+        .await?
+        .ok_or("no transaction found in latest block")?;
+
+    let tx_hash = transaction.tx_hash().to_string();
+    let from = transaction.from().to_string();
+    let block_number = transaction
+        .block_number()
+        .ok_or("transaction has no block number")?;
+
+    Ok((tx_hash, from, block_number))
 }

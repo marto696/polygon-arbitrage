@@ -5,4 +5,5 @@ edition = "2024"
 
 [dependencies]
 alloy-eips = "2.4.1"
+alloy-network = "2.4.1"
 alloy-provider = "2.4.1"

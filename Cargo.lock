@@ -2683,6 +2683,7 @@ name = "polygon-rpc"
 version = "0.1.0"
 dependencies = [
  "alloy-eips",
+ "alloy-network",
  "alloy-provider",
 ]
 
