@@ -1,6 +1,6 @@
 use polygon_rpc::{
     account_balance, latest_block_first_transaction, latest_block_info, polygon_status,
-    usdc_decimals,
+    usdc_decimals, usdc_decimals_gas_estimate,
 };
 use std::env;
 
@@ -35,6 +35,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     let decimals = usdc_decimals(&rpc_url).await?;
 
     println!("USDC decimals: {decimals}");
+
+    let gas_estimate = usdc_decimals_gas_estimate(&rpc_url).await?;
+
+    println!("USDC decimals gas estimate: {gas_estimate}");
 
     Ok(())
 }

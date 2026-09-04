@@ -78,3 +78,22 @@ pub async fn usdc_decimals(rpc_url: &str) -> Result<u64, Box<dyn std::error::Err
 
     Ok(decimals)
 }
+
+pub async fn usdc_decimals_gas_estimate(
+    rpc_url: &str,
+) -> Result<u64, Box<dyn std::error::Error + Send + Sync>> {
+    let provider = ProviderBuilder::new().connect(rpc_url).await?;
+
+    let usdc_address: Address = "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359".parse()?;
+
+    // decimals() selector = 0x313ce567
+    let call_data = Bytes::from_static(&[0x31, 0x3c, 0xe5, 0x67]);
+
+    let request = TransactionRequest::default()
+        .to(usdc_address)
+        .input(TransactionInput::new(call_data));
+
+    let gas = provider.estimate_gas(request).await?;
+
+    Ok(gas)
+}
