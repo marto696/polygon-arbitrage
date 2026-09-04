@@ -1,7 +1,9 @@
 use alloy_eips::BlockNumberOrTag;
 use alloy_network::TransactionResponse;
-use alloy_primitives::Address;
+
+use alloy_primitives::{Address, Bytes, U256};
 use alloy_provider::{Provider, ProviderBuilder};
+use alloy_rpc_types_eth::{TransactionInput, TransactionRequest};
 
 pub async fn polygon_status(
     rpc_url: &str,
@@ -56,4 +58,23 @@ pub async fn account_balance(
     let balance = provider.get_balance(address).await?;
 
     Ok(balance.to_string())
+}
+
+pub async fn usdc_decimals(rpc_url: &str) -> Result<u64, Box<dyn std::error::Error + Send + Sync>> {
+    let provider = ProviderBuilder::new().connect(rpc_url).await?;
+
+    let usdc_address: Address = "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359".parse()?;
+
+    // decimals() selector = 0x313ce567
+    let call_data = Bytes::from_static(&[0x31, 0x3c, 0xe5, 0x67]);
+
+    let request = TransactionRequest::default()
+        .to(usdc_address)
+        .input(TransactionInput::new(call_data));
+
+    let result = provider.call(request).await?;
+
+    let decimals = U256::from_be_slice(&result).to::<u64>();
+
+    Ok(decimals)
 }

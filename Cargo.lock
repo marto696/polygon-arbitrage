@@ -2686,6 +2686,7 @@ dependencies = [
  "alloy-network",
  "alloy-primitives",
  "alloy-provider",
+ "alloy-rpc-types-eth",
 ]
 
 [[package]]

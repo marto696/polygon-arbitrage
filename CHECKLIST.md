@@ -126,7 +126,7 @@ Primary stack:
 - [x] Read block
 - [x] Read transaction
 - [x] Read account balance
-- [ ] Test `eth_call`
+- [x] Test `eth_call`
 - [ ] Test gas estimation
 
 ## Provider Reliability
